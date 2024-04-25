@@ -2,7 +2,7 @@
 #include"Class_Sample.h"
 
 #define MAX_HEALTH  100
-#define EX          12
+#define EXP          12
 
 
 
@@ -16,9 +16,10 @@ int main()
     {
         Player frank;
         frank.set_name("Frank");
+        
         Player hero("Hero");
         hero.set_name("Hero");
-        Player villain("Villian", 100, 24);
+        Player villain("Villian", MAX_HEALTH, EXP);
         villain.set_name("Villain");
     }
 
