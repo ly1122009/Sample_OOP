@@ -1,5 +1,5 @@
 /**
- * Shadow Copying with the copy constructor
+ * Deep copy constructor in OOP
 */
 
 #include <iostream>
@@ -93,24 +93,58 @@ void display_Shadow(Shadow p_obj)
     std::cout << "Value of pointer:  " << p_obj.get_data_value() << std::endl;
 }
 
+/**
+ * Deep Class
+*/
+class Deep
+{
+private:
+    /* data */
+    int *data;
+public:
+    void set_data_value(int p_data) {*data = p_data;}
+    int get_data_value() {return *data;}
 
+    /* Constructor */
+    Deep(int p_data);
+    /* Copy constructor */
+    Deep(const Deep &source);
+    /* Destructor */
+    ~Deep();
+};
+/* Constructor */
+Deep::Deep(int p_data)
+{
+    data = new int; 
+    *data = p_data;
+}
+/* Copy constructor */
+ Deep :: Deep (const Deep &source) : Deep{*source.data}
+{
+    std::cout << "Copy constructor - Deep copy" << std::endl;
+}
+/* Destructor */
+Deep::~Deep()
+{
+    delete data;
+    std::cout << "Destructor freeing data" << std::endl;
+}
+
+void display_Deep(Deep p_obj)
+{
+    std::cout << "Value of pointer:  " << p_obj.get_data_value() << std::endl;
+}
 
 int main()
 {
-    Shadow obj1 {100};
-    display_Shadow(obj1);   
+    Deep obj1 {100};
+    display_Deep(obj1);
 
-    Shadow obj2 {obj1};
-    display_Shadow(obj2);
-    obj2.set_data_value(400); // Khi thay đổi data of obj2, vô tình nó làm thay đổi luôn data của obj1(vì cả 2 đều trỏ đến 1 vùng nhớ)
-                              
-    display_Shadow(obj2);
+    Deep obj2 {obj1};
+    obj2.set_data_value(500);
+    display_Deep(obj2);
 }
 /**
- * Shadow copy Là một copy constructor sao chép một con trỏ 
- * Giá trị của con trỏ được lưu trong bộ nhớ head. Khi delete thì quyền quản lí bộ nhớ head được trao lại cho hđh
- * Lúc này, con trỏ sẽ trỏ vào vùng bộ nhớ không hợp lệ.
- * Khi tạo lại obj2, thì con trỏ sẽ trỏ lại vùng nhớ có giá trị 100.
- * Không sử dụng shadow copy cho class chứa con trỏ. Nên sử dụng deep copy
- * 
+ * Deep copy là một copy constructor sao chép the data pointed to by the pointer.
+ * Chúng ta phải phân bổ dung lượng lưu trữ cho dữ liệu được sao chép sau đó thực hiện sao chép
 */

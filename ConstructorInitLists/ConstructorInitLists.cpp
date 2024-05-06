@@ -3,7 +3,6 @@
 */
 #include <iostream>
 
-
 class Player
 {
 private:
@@ -49,3 +48,4 @@ int main()
 
     return 0;
 }
+
